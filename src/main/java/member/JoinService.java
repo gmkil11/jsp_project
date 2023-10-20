@@ -1,6 +1,5 @@
-package models.member;
+package member;
 
-import commons.BadRequestException;
 import commons.Validator;
 import jakarta.servlet.http.HttpServletRequest;
 
