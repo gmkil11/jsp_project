@@ -37,3 +37,11 @@
 - 아이디에 해당하는 회원 정보가 있는지 체크 후 로그인 처리
 - 로그인 처리(세션에 회원 정보를 저장)
 
+## 기능 통합 
+- 회원가입 
+  - Controller : /member/join
+    - controllers/member/JoinController
+    - GET : 회원가입 양식
+    - POST : 회원가입 처리
+  - View : /WEB-INF/templates/member/join.jsp
+    - 
