@@ -2,24 +2,29 @@
 
 ## TDD를 통한 설계
 ### 의존성 추가(pom.xml)
-1. junit 5
+- junit 5
   - junit-jupiter 5.10.0
+  
 
-2. mockito
+- mockito
   - mockito-core 5.6.0
   - mockito-junit-jupiter 5.6.0
+  
 
-3. maven-sure-fire plugin
+- maven-sure-fire plugin
   - maven-surefire-plugin 3.1.2
+  
 
-4. lombok
+- lombok
   - lombok 1.18.30
 
-5. jakarta servlet
+
+- jakarta servlet
   - jakarta.servlet-api 6.0.0
   - jakarta.servlet.jsp-api 3.1.1
   - jakarta.servlet.jsp.jstl-api 3.0.0
   - jakarta.servlet.jsp.jstl 3.0.1
+
 
 ### 톰캣10 서버 설정
 
@@ -31,6 +36,7 @@
 - 아이디 중복 여부 체크 - 중복된 경우 가입 불가
 - 회원 정보를 저장
 
+
 ### 로그인 기능 설계(LoginService)
 - models/member/LoginService.java 만들기
 - 필수 항목 검증(아이디, 비밀번호)
@@ -38,10 +44,20 @@
 - 로그인 처리(세션에 회원 정보를 저장)
 
 ## 기능 통합 
-- 회원가입 
+### 회원가입 
   - Controller : /member/join
     - controllers/member/JoinController
     - GET : 회원가입 양식
     - POST : 회원가입 처리
+
+
   - View : /WEB-INF/templates/member/join.jsp
-    - 
+  
+### 로그인
+  - Controller : /member/login
+    - controllers/member/LoginController
+    - GET : 로그인 양식
+    - POST : 로그인 처리
+
+
+  - View : /WEB-INF/templates/member/login.jsp
