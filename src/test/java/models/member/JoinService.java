@@ -27,11 +27,10 @@ public class JoinService {
         boolean agree = _agree.equals("true") ? true : false;
 
         Member member = Member.builder()
-                .userId(request.getParameter("userId"))
+                .userNm(request.getParameter("userNm"))
+                .email(request.getParameter("email"))
                 .userPw(request.getParameter("userPw"))
                 .confirmUserPw(request.getParameter("confirmUserPw"))
-                .email(request.getParameter("email"))
-                .userNm(request.getParameter("userNm"))
                 .agree(agree)
                 .build();
         join(member);

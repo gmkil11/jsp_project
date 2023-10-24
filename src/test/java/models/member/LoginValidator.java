@@ -14,14 +14,14 @@ public class LoginValidator implements Validator<HttpServletRequest>, RequiredVa
     }
     @Override
     public void check(HttpServletRequest request) {
-        String userId = request.getParameter("userId");
+        String email = request.getParameter("email");
         String userPw = request.getParameter("userPw");
 
         // 필수 입력항목 검사
-        requiredCheck(userId, new BadRequestException("아이디를 입력하세요."));
+        requiredCheck(email, new BadRequestException("이메일을 입력하세요."));
         requiredCheck(userPw, new BadRequestException("비밀번호를 입력하세요."));
 
         // 가입된 회원인지 검사
-        requiredTrue(memberDao.exists(userId), new MemberNotFoundException());
+        requiredTrue(memberDao.exists(email), new MemberNotFoundException());
     }
 }

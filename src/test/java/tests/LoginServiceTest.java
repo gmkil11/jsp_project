@@ -4,6 +4,7 @@ import commons.BadRequestException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import models.member.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,6 @@ public class LoginServiceTest {
 
     @Mock
     private HttpSession session;
-
     @Mock
     private HttpServletRequest request;
 
@@ -45,51 +45,52 @@ public class LoginServiceTest {
 
     private Member getMember() {
         String userPw = "12345678";
+        String email = "user@test.org";
         return Member.builder()
-                .userId("user" + System.currentTimeMillis())
+                .email(email)
                 .userPw(userPw)
                 .confirmUserPw(userPw)
                 .userNm("사용자")
-                .email("user@test.org")
                 .agree(true)
                 .build();
     }
 
-    private void createRequestData(String userId, String userPw){
-        given(request.getParameter("userId")).willReturn(userId); // 모키토 쪽에서 가짜 데이터를 받아온다.
+    private void createRequestData(String email, String userPw){
+        given(request.getParameter("email")).willReturn(email); // 모키토 쪽에서 가짜 데이터를 받아온다.
         given(request.getParameter("userPw")).willReturn(userPw);
     }
 
     @Test
     @DisplayName("로그인 성공시 예외가 발생하지 않음")
     void loginSuccess(){
-        createRequestData(member.getUserId(), member.getUserPw());
+        createRequestData(member.getEmail(), member.getUserPw());
         assertDoesNotThrow(() -> {
             loginService.login(request);
         });
     }
 
     @Test
-    @DisplayName("필수 항목 검증(아이디, 비밀번호), 검증 실패시 BadRequestException 발생")
+    @DisplayName("필수 항목 검증(이메일, 비밀번호), 검증 실패시 BadRequestException 발생")
     void requiredFiledCheck() {
         assertAll(
                 () ->{
                     // 아아디 검증
                     createRequestData(null, member.getUserPw());
-                    filedEachCheck(request, "아이디");
+                    filedEachCheck(request, "이메일");
 
                     createRequestData(" ", member.getUserPw());
-                    filedEachCheck(request, "아이디");
+                    filedEachCheck(request, "이메일");
                 },
                 () ->{
                     // 비밀번호 검증
-                    createRequestData(member.getUserId(),null);
+                    createRequestData(member.getEmail(),null);
                     filedEachCheck(request, "비밀번호");
 
-                    createRequestData(member.getUserId()," ");
+                    createRequestData(member.getEmail()," ");
                     filedEachCheck(request, "비밀번호");
                 }
         );
+        MemberDao.clearData(); // DB 연동 시 필요 없음
     }
 
     private void filedEachCheck(HttpServletRequest request, String word) {
@@ -101,11 +102,12 @@ public class LoginServiceTest {
     }
 
     @Test
-    @DisplayName("아이디에 해당하는 회원 정보가 있는지 체크, 검증 실패시 MemberNotFoundException")
+    @DisplayName("이메일에 해당하는 회원 정보가 있는지 체크, 검증 실패시 MemberNotFoundException")
     void memberExistsCheck() {
         assertThrows(MemberNotFoundException.class ,()->{
-           createRequestData(member.getUserId() + "**", member.getUserPw());
+           createRequestData(member.getEmail() + "**", member.getUserPw());
            loginService.login(request);
         });
+        MemberDao.clearData(); // DB 연동 시 필요 없음
     }
 }

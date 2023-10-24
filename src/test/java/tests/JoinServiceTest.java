@@ -35,7 +35,6 @@ public class JoinServiceTest {
     private Member getMember() {
         String userPw = "12345678";
         return Member.builder()
-                .userId("user" + System.currentTimeMillis())
                 .userPw(userPw)
                 .confirmUserPw(userPw)
                 .userNm("사용자")
@@ -53,18 +52,17 @@ public class JoinServiceTest {
     }
 
     @Test
-    @DisplayName("필수 항목 검증(아이디, 비밀번호, 비밀번호 확인, 회원명, 이메일, 회원가입약관 동의), 검증 실패시 BadRequestException 발생")
+    @DisplayName("필수 항목 검증(이메일, 비밀번호, 비밀번호 확인, 회원명, 회원가입약관 동의), 검증 실패시 BadRequestException 발생")
     void requiredFieldCheck() {
-        // 아이디(userId)가 null 또는 빈값("")
         assertAll(
                 ()-> {
-                    //아이디 검증(userId)
+                    //이메일 검증(email)
                     Member member = getMember();
-                    member.setUserId(null);
-                    filedEachCheck(member,"아이디");
+                    member.setEmail(null);
+                    filedEachCheck(member,"이메일");
 
-                    member.setUserId(" ");
-                    filedEachCheck(member, "아이디");
+                    member.setEmail(" ");
+                    filedEachCheck(member, "이메일");
 
                 },
                 ()-> {
@@ -98,16 +96,6 @@ public class JoinServiceTest {
 
                 },
                 ()-> {
-                    //이메일 검증(email)
-                    Member member = getMember();
-                    member.setEmail(null);
-                    filedEachCheck(member,"이메일");
-
-                    member.setEmail(" ");
-                    filedEachCheck(member, "이메일");
-
-                },
-                ()-> {
                     //약관동의 검증(agree)
                     Member member = getMember();
                     member.setAgree(false);
@@ -125,15 +113,9 @@ public class JoinServiceTest {
     }
 
     @Test
-    @DisplayName("아아디(6자리 이상), 비밀번호(8자리 이상) 최소 자리수 체크, 실패시 BadRequestException 발생")
+    @DisplayName("비밀번호(8자리 이상) 최소 자리수 체크, 실패시 BadRequestException 발생")
     void fieldLengthTest(){
         assertAll(
-                () ->{
-                    // 아이디 6자리 이상 검증
-                    Member member = getMember();
-                    member.setUserId("user");
-                    filedEachCheck(member, "아이디는 6자리");
-                },
                 () ->{
                     // 비밀번호 8자리 이상 검증
                     Member member = getMember();
@@ -171,7 +153,6 @@ public class JoinServiceTest {
     @DisplayName("HttpServletRequest 요청 데이터로 성공 테스트")
     void joinSuccessByRequest(){
         Member member = getMember();
-        given(request.getParameter("userId")).willReturn(member.getUserId());
         given(request.getParameter("userPw")).willReturn(member.getUserPw());
         given(request.getParameter("confirmUserPw")).willReturn(member.getConfirmUserPw());
         given(request.getParameter("userNm")).willReturn(member.getUserNm());
@@ -179,5 +160,16 @@ public class JoinServiceTest {
         given(request.getParameter("agree")).willReturn(""+member.isAgree());
         joinService.join(request);
 
+    }
+
+    @Test
+    @DisplayName("이메일 형식이 맞지 않을 경우 BadRequestException 발생")
+    void emailCheckTest(){
+        assertThrows(BadRequestException.class, ()->{
+            Member member = getMember();
+            member.setEmail("test");
+            joinService.join(member);
+
+        });
     }
 }
