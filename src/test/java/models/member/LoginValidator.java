@@ -1,11 +1,13 @@
 package models.member;
 
 import commons.BadRequestException;
+import commons.PasswordValidator;
 import commons.RequiredValidator;
 import commons.Validator;
 import jakarta.servlet.http.HttpServletRequest;
+import org.mindrot.jbcrypt.BCrypt;
 
-public class LoginValidator implements Validator<HttpServletRequest>, RequiredValidator {
+public class LoginValidator implements Validator<HttpServletRequest>, RequiredValidator, PasswordValidator {
 
     private MemberDao memberDao;
 
@@ -23,5 +25,9 @@ public class LoginValidator implements Validator<HttpServletRequest>, RequiredVa
 
         // 가입된 회원인지 검사
         requiredTrue(memberDao.exists(email), new MemberNotFoundException());
+
+        // 비밀번호 검사
+        passwordCheck(userPw, request.getParameter(userPw), new BadRequestException("이메일 및 비밀번호를 확인하세요"));
+        System.out.printf("userPw: %s request.userPw: %s",userPw , request.getParameter(userPw));
     }
 }

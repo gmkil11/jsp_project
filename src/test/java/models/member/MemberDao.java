@@ -19,7 +19,10 @@ public class MemberDao {
         return members.get(email);
     }
 
+
+
     public boolean exists(String email){
+
         return members.containsKey(email);
     }
 

@@ -110,4 +110,15 @@ public class LoginServiceTest {
         });
         MemberDao.clearData(); // DB 연동 시 필요 없음
     }
+
+    @Test
+    @DisplayName("비밀번호가 맞는지 체크, 검증 실패시 BadRequestException 발생")
+    void passwordCheck() {
+        assertThrows(BadRequestException.class, () ->{
+                    createRequestData(member.getEmail(), member.getUserPw() + "**");
+                    loginService.login(request);
+                }
+        );
+
+    }
 }
