@@ -3,7 +3,7 @@
 <%@ attribute name="title" %>
 
 <c:url var="commonCss" value="/css/style.css" />
-<c:url var="commonJs" value="/js/main.js" />
+<c:url var="checkboxJs" value="/js/checkbox.js" />
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <title>${title}</title>
     <link rel="stylesheet" type="text/css" href="${commonCss}">
-
+    <script type="text/javascript" src="${checkboxJs}" ></script>
 </head>
 <body class="body">
 <main>
@@ -23,6 +23,6 @@
     <p class="footerText">©musiport , Inc. 2023. We love all music!</p>
 </footer>
 <iframe name="ifrmProcess" class="dn" ></iframe>
+
 </body>
-<script type="text/javascript" src="${commonJs}" ></script>
 </html>

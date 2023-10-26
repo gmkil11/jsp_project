@@ -11,9 +11,9 @@
 
 <form class="loginInfoBox" method="post" action="${action}" target="ifrmProcess">
     <img src="<c:url value="/images/icons/carbon_email.svg"/>" class="emailIconLogin" alt="이메일 아이콘">
-    <input type="text" class="loginInfo" name="email" id="email" placeholder="이메일을 입력해주세요" required >
+    <input type="text" class="loginInfo" name="email" id="email" placeholder="이메일을 입력해주세요" >
     <img src="<c:url value="/images/icons/mdi_password-outline.svg"/>" class="passwordIconLogin" alt="패스워드 아이콘">
-    <input type="password" class="loginInfo" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요" required>
+    <input type="password" class="loginInfo" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요" >
     <button type="submit" class="loginPageButton loginButton">로그인</button>
     <button class="loginPageButton loginButton createButton" onclick="location.href='<c:url value="/member/join"/>' " >회원가입</button>
 </form>
