@@ -3,25 +3,27 @@
 <%@ taglib prefix="layout" tagdir="/WEB-INF/tags/layouts" %>
 
 <c:url var="action" value="/member/login"/>
-<layout:main title = "로그인">
-    <h1>로그인</h1>
-    <form method="post" action="${action}" target="ifrmProcess" >
-        <dl>
-            <dt>아이디</dt>
-            <dd>
-                <input type="text" name="userId" value="${cookie.saveId.value}">
-            </dd>
-        </dl>
-        <dl>
-            <dt>비밀번호</dt>
-            <dd>
-                <input type="password" name="userPw">
-            </dd>
-        </dl>
-        <div>
-            <input type="checkbox" name="saveId" value="true" id="saveId" ${cookie.saveId == null ? '':'checked'}>
-            <label for="saveId">아이디 저장</label>
-        </div>
-        <button type="submit">로그인</button>
-    </form>
-</layout:main>
+
+<layout:member>
+<div class="loginLogoBox">
+    <img src="<c:url value="/images/musiport.svg"/>" class="loginLogo" alt="logo">
+</div>
+
+<form class="loginInfoBox" method="post" action="${action}" target="ifrmProcess">
+    <img src="<c:url value="/images/icons/carbon_email.svg"/>" class="emailIconLogin" alt="이메일 아이콘">
+    <input type="text" class="loginInfo" name="email" id="email" placeholder="이메일을 입력해주세요" required >
+    <img src="<c:url value="/images/icons/mdi_password-outline.svg"/>" class="passwordIconLogin" alt="패스워드 아이콘">
+    <input type="password" class="loginInfo" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요" required>
+    <button type="submit" class="loginPageButton loginButton">로그인</button>
+    <button class="loginPageButton loginButton createButton" onclick="location.href='<c:url value="/member/join"/>' " >회원가입</button>
+</form>
+
+<label class="forgot">
+    <p style="margin-bottom: 15px;">계정을 잃어버리셨나요?</p>
+    <hr width="172px" style="border: solid 0.5px #b0b0b0; ">
+    <div class="forgotLink">
+        <a href="#" style="margin-right: 25px;" >아이디 찾기</a>
+        <a href="#">비밀번호 찾기</a>
+    </div>
+</label>
+</layout:member>

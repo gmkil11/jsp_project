@@ -29,7 +29,13 @@ public class JoinValidator implements Validator<Member> , RequiredValidator, Len
 
         requiredCheck(member.getUserNm(), new BadRequestException("회원명을 입력하세요"));
 
-        requiredTrue(member.isAgree(), new BadRequestException("회원가입 약관에 동의하세요"));
+        requiredTrue(member.isAgeAgree(), new BadRequestException("만 14세 이상 이용 약관에 동의하세요"));
+
+        requiredTrue(member.isTermsOfUser(), new BadRequestException("뮤지포트 이용 약관에 동의하세요"));
+
+        requiredTrue(member.isPrivacy(), new BadRequestException("개인정보 수집 및 이용 약관에 동의하세요"));
+
+        requiredTrue(member.isThirdPartyAgree(), new BadRequestException("개인정보 제3자 제공 약관에 동의하세요"));
         // 필수 항목 검증 끝
 
         // 이메일 형식 체크 시작

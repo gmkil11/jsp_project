@@ -10,17 +10,21 @@ public class MemberDao {
 
     public void register(Member member){
         String userPw = BCrypt.hashpw(member.getUserPw(), BCrypt.gensalt(12));
+
         member.setUserPw(userPw);
 
-        members.put(member.getUserId(), member);
+        members.put(member.getEmail(), member);
     }
 
-    public Member get(String userId){
-        return members.get(userId);
+    public Member get(String email){
+        return members.get(email);
     }
 
-    public boolean exists(String userId){
-        return members.containsKey(userId);
+
+
+    public boolean exists(String email){
+
+        return members.containsKey(email);
     }
 
     public static void clearData() { // DB 연동 시 필요 없음

@@ -10,6 +10,7 @@ public class MemberDao {
 
     public void register(Member member){
         String userPw = BCrypt.hashpw(member.getUserPw(), BCrypt.gensalt(12));
+
         member.setUserPw(userPw);
 
         members.put(member.getEmail(), member);

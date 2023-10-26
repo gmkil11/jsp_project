@@ -4,7 +4,6 @@ import commons.BadRequestException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import models.member.*;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,7 +50,10 @@ public class LoginServiceTest {
                 .userPw(userPw)
                 .confirmUserPw(userPw)
                 .userNm("사용자")
-                .agree(true)
+                .ageAgree(true)
+                .termsOfUser(true)
+                .privacy(true)
+                .thirdPartyAgree(true)
                 .build();
     }
 
@@ -63,6 +65,7 @@ public class LoginServiceTest {
     @Test
     @DisplayName("로그인 성공시 예외가 발생하지 않음")
     void loginSuccess(){
+        Member member = getMember();
         createRequestData(member.getEmail(), member.getUserPw());
         assertDoesNotThrow(() -> {
             loginService.login(request);
@@ -90,7 +93,7 @@ public class LoginServiceTest {
                     filedEachCheck(request, "비밀번호");
                 }
         );
-        MemberDao.clearData(); // DB 연동 시 필요 없음
+        MemberDao.clearData(); // DuplicateMemberException 발생을 막기위해
     }
 
     private void filedEachCheck(HttpServletRequest request, String word) {
@@ -108,17 +111,18 @@ public class LoginServiceTest {
            createRequestData(member.getEmail() + "**", member.getUserPw());
            loginService.login(request);
         });
-        MemberDao.clearData(); // DB 연동 시 필요 없음
+        MemberDao.clearData(); // DuplicateMemberException 발생을 막기위해
     }
 
     @Test
     @DisplayName("비밀번호가 맞는지 체크, 검증 실패시 BadRequestException 발생")
     void passwordCheck() {
         assertThrows(BadRequestException.class, () ->{
+            when(request.getParameter("userPw")).thenReturn("12345678"); // 여기서 "12345678"은 입력한 비밀번호 값
                     createRequestData(member.getEmail(), member.getUserPw() + "**");
                     loginService.login(request);
                 }
         );
-
+        MemberDao.clearData(); // DuplicateMemberException 발생을 막기위해
     }
 }

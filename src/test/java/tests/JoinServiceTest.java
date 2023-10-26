@@ -39,7 +39,10 @@ public class JoinServiceTest {
                 .confirmUserPw(userPw)
                 .userNm("사용자")
                 .email("user@test.org")
-                .agree(true)
+                .ageAgree(true)
+                .termsOfUser(true)
+                .privacy(true)
+                .thirdPartyAgree(true)
                 .build();
     }
 
@@ -63,7 +66,6 @@ public class JoinServiceTest {
 
                     member.setEmail(" ");
                     filedEachCheck(member, "이메일");
-
                 },
                 ()-> {
                     // 비밀번호 검증(userPw)
@@ -73,7 +75,6 @@ public class JoinServiceTest {
 
                     member.setUserPw(" ");
                     filedEachCheck(member, "비밀번호");
-
                 },
                 ()-> {
                     // 비밀번호 확인 검증(confirmUserPw)
@@ -83,7 +84,6 @@ public class JoinServiceTest {
 
                     member.setConfirmUserPw(" ");
                     filedEachCheck(member, "비밀번호를 확인");
-
                 },
                 ()-> {
                     //회원명 검증(userNm)
@@ -93,14 +93,28 @@ public class JoinServiceTest {
 
                     member.setUserNm(" ");
                     filedEachCheck(member, "회원명");
-
                 },
                 ()-> {
-                    //약관동의 검증(agree)
+                    //만 14세 이상 이용 동의 검증(agree)
                     Member member = getMember();
-                    member.setAgree(false);
-                    filedEachCheck(member,"약관");
-
+                    member.setAgeAgree(false);
+                    filedEachCheck(member,"14세");
+                },
+                ()-> {
+                    //뮤지포트 이용약관 동의 검증(agree)
+                    Member member = getMember();
+                    member.setTermsOfUser(false);
+                    filedEachCheck(member,"뮤지포트");
+                },()-> {
+                    //개인정보 수집 및 이용 약관 동의 검증(agree)
+                    Member member = getMember();
+                    member.setPrivacy(false);
+                    filedEachCheck(member,"개인정보");
+                },()-> {
+                    //제3자 개인정보 제공 약관 동의 검증(agree)
+                    Member member = getMember();
+                    member.setThirdPartyAgree(false);
+                    filedEachCheck(member,"제3자");
                 }
         );
     }
@@ -157,7 +171,10 @@ public class JoinServiceTest {
         given(request.getParameter("confirmUserPw")).willReturn(member.getConfirmUserPw());
         given(request.getParameter("userNm")).willReturn(member.getUserNm());
         given(request.getParameter("email")).willReturn(member.getEmail());
-        given(request.getParameter("agree")).willReturn(""+member.isAgree());
+        given(request.getParameter("ageAgree")).willReturn(""+member.isAgeAgree());
+        given(request.getParameter("termsOfUser")).willReturn(""+member.isTermsOfUser());
+        given(request.getParameter("privacy")).willReturn(""+member.isPrivacy());
+        given(request.getParameter("thirdPartyAgree")).willReturn(""+member.isThirdPartyAgree());
         joinService.join(request);
 
     }

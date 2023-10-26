@@ -11,6 +11,7 @@ import member.JoinService;
 import member.ServiceManager;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/member/join")
 public class JoinController extends HttpServlet {
@@ -29,8 +30,6 @@ public class JoinController extends HttpServlet {
             String url = req.getContextPath()+"/member/login";
 
             go(resp, url, "parent");
-
-
         } catch (RuntimeException e) {
             alertError(resp, e);
         }
