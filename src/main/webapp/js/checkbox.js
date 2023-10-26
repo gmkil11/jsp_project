@@ -14,6 +14,7 @@ function checkSelectAll() {
     const selectAll = document.getElementById('selectAll');
 
     const allCheckboxes = [...checkboxAge, ...checkboxTerm, ...checkboxPri, ...checkboxThird];
+
     let allChecked = true;
 
     for (const checkbox of allCheckboxes) {

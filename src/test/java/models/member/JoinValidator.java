@@ -17,6 +17,7 @@ public class JoinValidator implements Validator<Member> , RequiredValidator, Len
     public void check(Member member) {
         String email = member.getEmail();
         String userPw = member.getUserPw();
+        String userNm = member.getUserNm();
         String confirmUserPw = member.getConfirmUserPw();
 
 
@@ -47,10 +48,13 @@ public class JoinValidator implements Validator<Member> , RequiredValidator, Len
         // 비밀번호 자릿수 체크 끝
 
         // 비밀번호, 비밀번호 확인 일치여부 체크
-        requiredTrue(userPw.equals(confirmUserPw), new BadRequestException("비밀번호가 일치하지 않습니다."));
+        requiredTrue(userPw.equals(confirmUserPw), new BadRequestException("비밀번호가 일치하지 않습니다"));
 
-        // 중복 가입 여부 체크
-        requiredTrue(!memberDao.exists(email), new DuplicateMemberException());
+        // 회원면 중복 가입 여부체크
+        requiredTrue(!memberDao.exists(userNm), new DuplicateMemberException("이미 가입된 회원명 입니다"));
+
+        // 이메일 중복 가입 여부 체크
+        requiredTrue(!memberDao.exists(email), new DuplicateMemberException("이미 가입된 이메일 입니다"));
 
     }
 

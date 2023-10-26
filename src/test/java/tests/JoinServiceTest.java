@@ -37,7 +37,7 @@ public class JoinServiceTest {
         return Member.builder()
                 .userPw(userPw)
                 .confirmUserPw(userPw)
-                .userNm("사용자")
+                .userNm("user")
                 .email("user@test.org")
                 .ageAgree(true)
                 .termsOfUser(true)
@@ -142,7 +142,7 @@ public class JoinServiceTest {
     @Test
     @DisplayName("비밀번호, 비밀번호 확인 입력 데이터 일치여부 체크, 검증 실패시 BadRequestException 발생")
     void passwordConfirmCheck() {
-        BadRequestException thrown = assertThrows(BadRequestException.class, () ->{
+        Exception thrown = assertThrows(BadRequestException.class, () ->{
             Member member = getMember();
             member.setConfirmUserPw(member.getUserPw() + "**");
             joinService.join(member);
@@ -151,16 +151,39 @@ public class JoinServiceTest {
     }
 
     @Test
-    @DisplayName("중복 가입 체크, 중복 가입인 경우 DuplicateMemberException 발생")
-    void duplicationJoinCheck() {
-        assertThrows(DuplicateMemberException.class, ()->{
+    @DisplayName("이메일 중복 가입 체크, 중복 가입인 경우 DuplicateMemberException 발생")
+    void emailDuplicationJoinCheck() {
+        DuplicateMemberException thrown = assertThrows(DuplicateMemberException.class, ()->{
            Member member = getMember();
            String userPw = member.getUserPw();
            joinService.join(member);
+            System.out.println(member.getUserNm());
 
+           member.setUserNm("a");
+            System.out.println(member.getUserNm());
            member.setUserPw(userPw);
-           joinService.join(member);
+            joinService.join(member);
         });
+        System.out.println(thrown);
+        assertTrue(thrown.getMessage().contains("이메일"));
+    }
+
+    @Test
+    @DisplayName("회원명 중복 가입 체크, 중복 가입인 경우 DuplicateMemberException 발생")
+    void userNmDuplicationJoinCheck() {
+        DuplicateMemberException thrown = assertThrows(DuplicateMemberException.class, ()->{
+
+            Member member = getMember();
+            String userPw = member.getUserPw();
+            joinService.join(member);
+
+
+            member.setEmail("a"+member.getEmail());
+            member.setUserPw(userPw);
+            joinService.join(member);
+        });
+        System.out.println(thrown);
+        assertTrue(thrown.getMessage().contains("회원명"));
     }
 
     @Test

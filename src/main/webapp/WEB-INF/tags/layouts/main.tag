@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <layout:common title="${title}">
     <jsp:attribute name="header">
+
                <button type="button" class="button" onclick="location.href='main.html'" >
                    <img src="<c:url value='/images/musiport.svg'/>" name="logo" alt="logo">
                </button>
@@ -15,9 +16,16 @@
                </div>
 
                <label class="loginButton1">
+                   <c:if test="${sessionScope.member == null}"> <%-- 비로그인 상태 --%>
                    <button  type="button" name="loginButton" class="loginButton" onclick="location.href='<c:url value="member/login"/>';" onmouseenter="this.style.cursor='hand'">
                        로그인
                    </button>
+                   </c:if>
+                   <c:if test="${sessionScope.member != null}"> <%-- 로그인 상태 --%>
+                       <button  type="button" name="loginButton" class="loginButton" onclick="location.href='<c:url value="member/logout"/>';" onmouseenter="this.style.cursor='hand'">
+                           로그아웃
+                       </button>
+                   </c:if>
                </label>
     </jsp:attribute>
     <jsp:attribute name="footer">

@@ -22,10 +22,15 @@ public class MemberDao {
 
 
 
-    public boolean exists(String email){
-
-        return members.containsKey(email);
+    public boolean exists(String value){
+        return members.containsKey(value);
     }
+
+    public boolean existsUserNm(String userNm) {
+        return members.values().stream()
+                .anyMatch(member -> member.getUserNm().equals(userNm));
+    }
+
 
     public static void clearData() { // DB 연동 시 필요 없음
         members.clear();

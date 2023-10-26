@@ -14,7 +14,7 @@
 
     <form class="loginInfoBox"  method="post" action="${action}" target="ifrmProcess">
         <img src="<c:url value="/images/icons/ic_baseline-perm-identity.svg"/>" class="nameIcon" alt="이름 아이콘">
-        <input type="text" class="loginInfo" name="userNm" id="userNm" placeholder="이름을 입력해주세요." >
+        <input type="text" class="loginInfo" name="userNm" id="userNm" placeholder="회원명을 입력해주세요." >
 
         <img src="<c:url value="/images/icons//carbon_email.svg"/>" class="emailIcon" alt="이메일 아이콘">
         <input type="text" class="loginInfo" name="email" id="email" placeholder="이메일을 입력해주세요" >

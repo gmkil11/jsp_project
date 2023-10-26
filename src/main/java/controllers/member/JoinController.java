@@ -24,11 +24,12 @@ public class JoinController extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            String userNm = req.getParameter("userNm");
+            req.setAttribute("userNm", userNm);
+            System.out.println(userNm);
             JoinService service = ServiceManager.getInstance().joinService();
             service.join(req);
-
-            String url = req.getContextPath()+"/member/login";
-
+            String url = req.getContextPath()+"/member/joinSuccess" + "?userNm="+userNm;
             go(resp, url, "parent");
         } catch (RuntimeException e) {
             alertError(resp, e);

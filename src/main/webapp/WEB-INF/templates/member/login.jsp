@@ -15,11 +15,11 @@
     <img src="<c:url value="/images/icons/mdi_password-outline.svg"/>" class="passwordIconLogin" alt="패스워드 아이콘">
     <input type="password" class="loginInfo" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요" >
     <button type="submit" class="loginPageButton loginButton">로그인</button>
-    <button class="loginPageButton loginButton createButton" onclick="location.href='<c:url value="/member/join"/>' " >회원가입</button>
+    <button type="button" class="loginPageButton loginButton createButton" onclick="location.href='<c:url value="/member/join"/>' " >회원가입</button>
 </form>
 
-<label class="forgot">
-    <p style="margin-bottom: 15px;">계정을 잃어버리셨나요?</p>
+    <label class="forgot">
+        <p style="margin-bottom: 15px;">계정을 잃어버리셨나요?</p>
     <hr width="172px" style="border: solid 0.5px #b0b0b0; ">
     <div class="forgotLink">
         <a href="#" style="margin-right: 25px;" >아이디 찾기</a>
