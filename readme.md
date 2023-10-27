@@ -38,6 +38,7 @@
 - 비밀번호, 비밀번호 확인 입력 데이터 일치여부 체크
 - 이메일 중복 여부 체크 - 중복된 경우 가입 불가
 - 이메일 형식 체크 - 이메일 형식에 맞지 않는 경우 가입 불가
+- 회원명 중복 여부 체크 - 중복된 경우 가입 불가
 
 
 ### 로그인 기능 설계(LoginService)
@@ -51,10 +52,11 @@
   - Controller : /member/join
     - controllers/member/JoinController
     - GET : 회원가입 양식
-    - POST : 회원가입 처리
+    - POST : 회원가입 처리 및 회원가입 완료 페이지 이동
 
 
   - View : /WEB-INF/templates/member/join.jsp
+    - /WEB-INF/templates/member/joinSuccess.jsp
   
 ### 로그인
   - Controller : /member/login
