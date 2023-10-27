@@ -1,0 +1,811 @@
+
+@font-face {
+	font-family: 'Pretendard Variable',;
+	font-weight: 45 920;
+	font-style: normal;
+	font-display: swap;
+	src: local('Pretendard Variable'), url('../../images/PretendardVariable.woff2') format('woff2-variations');
+}
+
+*{ 
+    font-family: "Pretendard Variable", sans-serif;
+    box-sizing: border-box;
+    outline: none;
+}
+
+html{
+    font-size : 10px
+
+}
+
+@media screen and (max-width: 1250px){
+    html{
+        font-size : 8px
+
+    }
+}
+
+@media screen and (max-width: 760px){
+    html{
+        font-size : 5px
+
+    }
+}
+
+
+/* 공통초기화 */
+body{ background: #121212;;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+ul, li{list-style: none; margin: 0; padding: 0;}
+a {text-decoration: none; color: #FFF;}
+
+
+/* 헤더 시작 */
+.logo{  width: 187px;
+        height: 42px;
+
+}
+
+header{
+    display: flex;
+    width: 100%;
+    padding: 32px 64px;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    position: absolute;
+    box-sizing: border-box; 
+    background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.00) 100%);
+    
+}
+
+
+.button{
+    background: none;
+    border: none;   
+    cursor: pointer;
+
+}
+
+.searchBox{ 
+    max-width: 500px;
+    width:80%;
+    height: 50px;
+    display: flex;
+    
+    }
+
+.searchInput{
+    width: 100%;
+    border-radius: 30px 0px 0px 30px;
+    border: none;
+    padding: 20px;
+    transition: all 0.5s;
+}
+
+.searchButton{
+    width: 15%;
+    padding: 10px;
+    background: white no-repeat center center;
+    background-image: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Icon/Search'%3E%3Cpath id='Vector' d='M20.4 20.975L13.825 14.4C13.325 14.8333 12.742 15.1708 12.076 15.4125C11.41 15.6542 10.7014 15.775 9.95 15.775C8.1473 15.775 6.62163 15.15 5.37298 13.9C4.12433 12.65 3.5 11.1417 3.5 9.375C3.5 7.60833 4.125 6.1 5.375 4.85C6.625 3.6 8.1375 2.975 9.9125 2.975C11.6875 2.975 13.1958 3.6 14.4375 4.85C15.6792 6.1 16.3 7.60958 16.3 9.37875C16.3 10.0929 16.1833 10.7833 15.95 11.45C15.7167 12.1167 15.3667 12.7417 14.9 13.325L21.5 19.875L20.4 20.975ZM9.925 14.275C11.2792 14.275 12.4302 13.7958 13.3781 12.8375C14.326 11.8792 14.8 10.725 14.8 9.375C14.8 8.025 14.326 6.87083 13.3781 5.9125C12.4302 4.95417 11.2792 4.475 9.925 4.475C8.55695 4.475 7.3941 4.95417 6.43645 5.9125C5.47882 6.87083 5 8.025 5 9.375C5 10.725 5.47882 11.8792 6.43645 12.8375C7.3941 13.7958 8.55695 14.275 9.925 14.275Z' fill='black'/%3E%3C/g%3E%3C/svg%3E%0A");
+    border-radius: 0px 30px 30px 0px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.searchInput:focus{
+    background-color: #a3e9a7;
+    transition: all 0.5s;
+    outline: none;
+}
+
+.searchInput:focus ~ .searchButton{
+    background-color: #a3e9a7;
+    transition: all 0.5s;
+}
+
+.loginButton{
+    margin-left: 57px;
+    width: 130px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 30px;
+    background: #A259FF;
+    border: none;
+    color: white;
+    font-family: "Pretendard Variable", sans-serif;
+    transition: all 0.5s;
+}
+
+.loginButton:hover{
+
+    background: #7610fc;
+    transition: all 0.5s;
+}
+/* 헤더 끝 */
+
+/* 배너 시작 */
+.banner{
+    display: block;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    border: none;
+    padding: none;
+    overflow: hidden;
+}
+
+.bannerImage{
+    width: 100%;
+
+}
+/* 배너 끝 */
+.contentButtons{
+    align-items: center;
+    display: flex;
+    margin-top: 75px;
+    justify-content: center;
+    align-items: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;  
+    box-sizing: border-box; 
+    
+}
+
+
+
+
+
+
+/* 신규 발매 앨범 시작 */
+.newAlbum{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 64px;
+    gap: 3%;
+}
+
+.newAlbum li{
+    width: calc(100% / 4 );
+    
+}
+
+
+.newAlbum .box{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-blend-mode: multiply;
+    height: 500px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+.newAlbum .box{
+    background-image: radial-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) 80%),url("../images/cards/card.png");
+    padding: 310px 0px 0px 42px;
+    overflow: hidden;
+    transition: all 1s;
+
+}
+
+.box:hover{
+    box-shadow: 0 0 20px 10px rgba(162, 89, 225, 0.2);
+    height: 490px;
+
+}
+
+
+
+.newAlbum .box1_artist{
+    height: 31px;
+}
+
+.newAlbum .box1_info1{
+    color: #FFF;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 3rem;
+    font-weight: 100;
+    line-height: 45px; /* 123.438% */
+    letter-spacing: -1px;
+    
+}
+
+.newAlbum .box1_info2{
+    color: #FFF;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 45px;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+}
+
+.newAlbum .box1_info3{
+    color: #FFF;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 50px; /* 50% */
+}
+
+.newAlbum .box2{
+    background-image: radial-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7) 80% ),url("../images/cards/animal.jpeg");
+    padding: 310px 0px 0px 42px;
+    overflow: hidden;
+}
+
+.newAlbum .box2_artist{
+    height: 30px;
+    color: #FFF;
+}
+
+.newAlbum .box3{
+    background-image: radial-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7) 80% ),url("../images/cards/gap.jpg");
+    padding: 300px 0px 0px 42px;
+    overflow: hidden;
+}
+
+.newAlbum .box3_artist{
+    color: #FFF;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 4.8rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px; /* 50% */
+    letter-spacing: -1px;
+}
+/* 신규 발매 앨범 끝 */
+
+/* 노래 카드 시작 */
+.contentBox{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    margin: 0 auto;
+    
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1064px;
+    height: 552px;
+    width: 100%;
+    justify-content: center;
+    margin: 0 auto auto ;
+}
+
+.cards li{
+    width: calc(100% / 6 );
+    margin: 16px 16px 0 16px ;
+    
+}
+
+.cards img{
+    width: 100%;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.cards .card_info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    
+}
+
+.cards .song_title{
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.24;
+    font-family: "Pretendard Variable", sans-serif;
+    margin-bottom: 4px;
+}
+
+.cards .song_artist{
+    color: #ccc;
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 0.21px;
+    font-family: "Pretendard Variable", sans-serif;
+}
+
+.cards .rank{
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 4.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 40px; /* 100% */
+    
+}
+
+.card_rank_Box{
+    display: flex;
+
+    gap: 8px;
+
+}
+
+/* 스위퍼 시작 */
+.swiper {
+    width: 100%;
+    height: 552px;
+    margin-top: 30px;
+
+  }
+
+.swiper-slide {
+text-align: center;
+font-size: 1.8rem;
+background: none;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.swiper-slide iframe {
+display: block;
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.swiper-pagination-bullet {
+width: 130px;
+height: 40px;
+border-radius: 30px;
+border: 1px solid #CFA9FF;
+color: #CFA9FF;
+font-family: "Pretendard Variable", sans-serif;
+transition: all 0.5s;
+text-align: center;
+line-height: 40px;
+font-size: 1.2rem;
+font-weight: 500;
+opacity: 1;
+background: #180432;
+box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.swiper-pagination-bullet-active {
+color: #fff;
+background: #A259FF;
+}
+
+.swiper-horizontal>.swiper-pagination-bullets,.swiper-pagination-bullets.swiper-pagination-horizontal,.swiper-pagination-custom,.swiper-pagination-fraction {
+
+position: relative;
+left: 0;
+width: 100%
+}
+
+  
+/* 스위퍼 끝 */
+
+/* 노래 카드 끝 */
+
+/* 중간배너 시작 */
+.underbanner{
+    display: flex;
+    width: auto;
+    height: 638;
+    padding-bottom: 0px;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border: none;
+    overflow: hidden;
+    margin-top: 50px;
+}
+
+.underbannerImage{ 
+    width: 100%;
+    object-fit: fill;
+    border: none;
+    z-index: 11;
+}
+
+.underbannerContent{
+    display: flex;
+    height: 638px;
+    width: 100%;
+    margin-left: 128px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 48px;
+    align-self: stretch;
+    z-index: 12;
+    position: absolute;
+}
+
+
+
+.underbannerText{
+    color: #FFF;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 4.8rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 60px; /* 125% */
+}
+
+.underbannerButton{
+    font-family: "Pretendard Variable", sans-serif;
+    width: 212px;
+    height: 40px;
+}
+/* 중간배너 끝 */
+
+/* 푸터 시작 */
+.footer{
+    height: 200px;
+    width: 100%;
+    display: flex;
+    padding-top: 45px;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 45px;
+}
+
+.footerText{
+    color: rgba(255, 255, 255, 0.80);
+    text-align: center;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 160% */
+    letter-spacing: -0.225px;
+}
+/* 푸터 끝 */
+
+/* 로그인 페이지 시작*/
+
+.loginLogoBox{
+    display: flex;
+    width: 100%;
+    padding-top: 64px;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+}
+.loginInfoBox{
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.loginInfo{
+    display: flex;
+    width: 430px;
+    padding: 16px;
+    align-items: center;
+    border-radius: 30px;
+    background: #F5F5F5;
+    border: none;
+    position: relative;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.24px;
+    padding-left: 50px;
+}
+
+.emailIcon{
+    background: none;
+    border: none;
+    margin-right: 370px;
+    position: absolute;
+    top: 253px;
+    z-index: 20;
+}
+
+.emailIconLogin{
+    background: none;
+    border: none;
+    margin-right: 370px;
+    position: absolute;
+    top: 184px;
+    z-index: 20;
+}
+
+.passwordIcon{
+    background: none;
+    border: none;
+    margin-right: 370px;
+    position: absolute;
+    top: 320px;
+    z-index: 20;
+}
+
+.passwordIconLogin{
+    background: none;
+    border: none;
+    margin-right: 370px;
+    position: absolute;
+    top: 250px;
+    z-index: 20;
+}
+
+
+.loginPageButton{
+    display: flex;
+    margin: 0;
+    width:430px;
+    height: 48px;
+    padding: 16px auto;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+
+
+.createButton{
+    transition: all 1s;
+    background: none;
+    border: 1px solid #CFA9FF; 
+    color: #CFA9FF;
+}
+
+.createButton:hover{
+    transition: all 1s;
+    background: #180432;
+
+}
+
+.forgot{
+    color: #FFF;
+    text-align: center;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.225px;
+    
+}
+
+.forgotLink{
+    color: #FFF;
+    text-align: center;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 100;
+    line-height: normal;
+    letter-spacing: -0.195px;
+    text-align: center;
+    justify-content:space-between ;
+    margin-top: 10px;
+    cursor: pointer;
+    margin-bottom: 150px;
+    
+}
+
+/* 로그인 페이지 끝 */
+
+/* 회원가입 페이지 시작*/
+.nameIcon{
+    background: none;
+    border: none;
+    margin-right: 370px;
+    position: absolute;
+    top: 185px;
+    z-index: 20;
+
+}
+
+.passwordCheckIcon{
+    background: none;
+    border: none;
+    margin-right: 370px;
+    position: absolute;
+    top: 387px;
+    z-index: 20;
+
+    }
+
+.agreeBox{ 
+    display: flex;
+    width: 430px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 64px 0px 64px;
+}
+
+.agreeAll {
+    color: #FFF;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px; /* 200% */
+}
+/* 체크박스 시작 */
+.agree{
+    display: none;
+
+}
+
+.agree + label{
+    cursor: pointer;
+
+}
+
+.agree + label > span{
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.agree + label:before{
+    content:"";
+    display:inline-block;
+    width:17px;
+    height:17px;
+    border:1px solid #ffffff;
+    border-radius: 4px;
+    vertical-align:middle;
+    transition: all 0.3s;
+}
+
+.agree:checked + label:before{
+    content:"";
+    background-color:#767676;
+    border-color:#ffffff;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-image: url('../images/icons/check.svg');
+    transition: all 0.3s;
+}
+
+
+.allAgreeText{
+    color: #FFF;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 1000;
+    line-height: 32px; /* 200% */
+    margin-left: -5px;
+}
+
+.agreeText{
+    color: #FFF;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 32px; /* 200% */
+}
+
+/* 체크박스 끝 */
+
+/* 회원가입 페이지 끝 */
+
+/* 앨범 상세보기 페이지 시작 */
+.topButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 30px;
+    background: #A259FF;
+    border: none;
+    color: white;
+    font-family: "pretendard Variable",serif;
+    transition: all 0.5s;
+}
+
+.mdButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 30px;
+    background: #A259FF;
+    border: none;
+    color: white;
+    font-family: "pretendard Variable",serif;
+    transition: all 0.5s;
+}
+
+.topButton:hover {
+    background: #7610fc;
+    transition: all 0.5s;
+
+}
+
+.mdButton:hover{
+    background: #7610fc;
+    transition: all 0.5s;
+}
+
+.albumInfoBox {
+    display: flex;
+    width: 1440px;
+    padding: 64px 150px 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 64px;
+}
+
+.albumInfo{
+
+    display: flex;
+    margin: 64px 70px 0px;
+}
+
+.albumImage{
+    width: 291px;
+    height: 291px;
+    flex-shrink: 0;
+    margin: 24px;
+}
+
+.albumArtistInfo {
+    color: #CDCDCD;
+    text-align: center;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px; /* 125% */
+    text-align: start;
+    padding-top:50px ;
+
+}
+
+.albumTitleText{
+    color: #FFF;
+    text-align: center;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 3.2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 4px; /* 125% */
+}
+
+.albumContent{
+    color: #FFF;
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 2.3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 10px; /* 166.667% */
+    margin: 0px 90px 0px;
+        
+}
+
+.albumContentVideo{
+    width: 1275px;
+    height: 702px;
+    justify-items: center;
+    align-items: center;
+    margin: 0px 80px 0px;
+}
+
+/* 앨범 상세보기 페이지 끝 */
+
+.dn {
+    display: none;
+}

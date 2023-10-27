@@ -19,10 +19,10 @@ public class LoginService {
         validator.check(request);
 
         // 로그인 처리 -> 세션에 담음
-        String userId = request.getParameter("userId");
-        Member member = memberDao.get(userId);
+        String email = request.getParameter("email");
+        Member member = memberDao.get(email);
         HttpSession session = request.getSession();
-        session.setAttribute("member",member);
+        session.setAttribute("member", member);
 
     }
 }

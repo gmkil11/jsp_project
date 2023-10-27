@@ -35,12 +35,14 @@ public class JoinServiceTest {
     private Member getMember() {
         String userPw = "12345678";
         return Member.builder()
-                .userId("user" + System.currentTimeMillis())
                 .userPw(userPw)
                 .confirmUserPw(userPw)
-                .userNm("사용자")
+                .userNm("user")
                 .email("user@test.org")
-                .agree(true)
+                .ageAgree(true)
+                .termsOfUser(true)
+                .privacy(true)
+                .thirdPartyAgree(true)
                 .build();
     }
 
@@ -53,19 +55,17 @@ public class JoinServiceTest {
     }
 
     @Test
-    @DisplayName("필수 항목 검증(아이디, 비밀번호, 비밀번호 확인, 회원명, 이메일, 회원가입약관 동의), 검증 실패시 BadRequestException 발생")
+    @DisplayName("필수 항목 검증(이메일, 비밀번호, 비밀번호 확인, 회원명, 회원가입약관 동의), 검증 실패시 BadRequestException 발생")
     void requiredFieldCheck() {
-        // 아이디(userId)가 null 또는 빈값("")
         assertAll(
                 ()-> {
-                    //아이디 검증(userId)
+                    //이메일 검증(email)
                     Member member = getMember();
-                    member.setUserId(null);
-                    filedEachCheck(member,"아이디");
+                    member.setEmail(null);
+                    filedEachCheck(member,"이메일");
 
-                    member.setUserId(" ");
-                    filedEachCheck(member, "아이디");
-
+                    member.setEmail(" ");
+                    filedEachCheck(member, "이메일");
                 },
                 ()-> {
                     // 비밀번호 검증(userPw)
@@ -75,7 +75,6 @@ public class JoinServiceTest {
 
                     member.setUserPw(" ");
                     filedEachCheck(member, "비밀번호");
-
                 },
                 ()-> {
                     // 비밀번호 확인 검증(confirmUserPw)
@@ -85,7 +84,6 @@ public class JoinServiceTest {
 
                     member.setConfirmUserPw(" ");
                     filedEachCheck(member, "비밀번호를 확인");
-
                 },
                 ()-> {
                     //회원명 검증(userNm)
@@ -95,24 +93,28 @@ public class JoinServiceTest {
 
                     member.setUserNm(" ");
                     filedEachCheck(member, "회원명");
-
                 },
                 ()-> {
-                    //이메일 검증(email)
+                    //만 14세 이상 이용 동의 검증(agree)
                     Member member = getMember();
-                    member.setEmail(null);
-                    filedEachCheck(member,"이메일");
-
-                    member.setEmail(" ");
-                    filedEachCheck(member, "이메일");
-
+                    member.setAgeAgree(false);
+                    filedEachCheck(member,"14세");
                 },
                 ()-> {
-                    //약관동의 검증(agree)
+                    //뮤지포트 이용약관 동의 검증(agree)
                     Member member = getMember();
-                    member.setAgree(false);
-                    filedEachCheck(member,"약관");
-
+                    member.setTermsOfUser(false);
+                    filedEachCheck(member,"뮤지포트");
+                },()-> {
+                    //개인정보 수집 및 이용 약관 동의 검증(agree)
+                    Member member = getMember();
+                    member.setPrivacy(false);
+                    filedEachCheck(member,"개인정보");
+                },()-> {
+                    //제3자 개인정보 제공 약관 동의 검증(agree)
+                    Member member = getMember();
+                    member.setThirdPartyAgree(false);
+                    filedEachCheck(member,"제3자");
                 }
         );
     }
@@ -125,15 +127,9 @@ public class JoinServiceTest {
     }
 
     @Test
-    @DisplayName("아아디(6자리 이상), 비밀번호(8자리 이상) 최소 자리수 체크, 실패시 BadRequestException 발생")
+    @DisplayName("비밀번호(8자리 이상) 최소 자리수 체크, 실패시 BadRequestException 발생")
     void fieldLengthTest(){
         assertAll(
-                () ->{
-                    // 아이디 6자리 이상 검증
-                    Member member = getMember();
-                    member.setUserId("user");
-                    filedEachCheck(member, "아이디는 6자리");
-                },
                 () ->{
                     // 비밀번호 8자리 이상 검증
                     Member member = getMember();
@@ -146,7 +142,7 @@ public class JoinServiceTest {
     @Test
     @DisplayName("비밀번호, 비밀번호 확인 입력 데이터 일치여부 체크, 검증 실패시 BadRequestException 발생")
     void passwordConfirmCheck() {
-        BadRequestException thrown = assertThrows(BadRequestException.class, () ->{
+        Exception thrown = assertThrows(BadRequestException.class, () ->{
             Member member = getMember();
             member.setConfirmUserPw(member.getUserPw() + "**");
             joinService.join(member);
@@ -155,29 +151,69 @@ public class JoinServiceTest {
     }
 
     @Test
-    @DisplayName("중복 가입 체크, 중복 가입인 경우 DuplicateMemberException 발생")
-    void duplicationJoinCheck() {
-        assertThrows(DuplicateMemberException.class, ()->{
+    @DisplayName("이메일 중복 가입 체크, 중복 가입인 경우 DuplicateMemberException 발생")
+    void emailDuplicationJoinCheck() {
+        DuplicateMemberException thrown = assertThrows(DuplicateMemberException.class, ()->{
            Member member = getMember();
+           String email = member.getEmail();
            String userPw = member.getUserPw();
            joinService.join(member);
+            System.out.println(member.getUserNm());
 
+           member = getMember();
+           member.setUserNm("123456767");
+           member.setEmail(email);
            member.setUserPw(userPw);
-           joinService.join(member);
+            joinService.join(member);
         });
+        System.out.println(thrown);
+        assertTrue(thrown.getMessage().contains("이메일"));
+    }
+
+    @Test
+    @DisplayName("회원명 중복 가입 체크, 중복 가입인 경우 DuplicateMemberException 발생")
+    void userNmDuplicationJoinCheck() {
+        DuplicateMemberException thrown = assertThrows(DuplicateMemberException.class, ()->{
+
+            Member member = getMember();
+            String userPw = member.getUserPw();
+            joinService.join(member);
+            System.out.println(member.getUserNm());
+
+
+            member.setEmail("a"+member.getEmail()); // 이메일 중복 가입 시 예외 발생하기 때문에 이메일을 다르게 설정
+            member.setUserPw(userPw);
+            joinService.join(member);
+            System.out.println(member.getUserNm());
+        });
+        System.out.println(thrown);
+        assertTrue(thrown.getMessage().contains("회원명"));
     }
 
     @Test
     @DisplayName("HttpServletRequest 요청 데이터로 성공 테스트")
     void joinSuccessByRequest(){
         Member member = getMember();
-        given(request.getParameter("userId")).willReturn(member.getUserId());
         given(request.getParameter("userPw")).willReturn(member.getUserPw());
         given(request.getParameter("confirmUserPw")).willReturn(member.getConfirmUserPw());
         given(request.getParameter("userNm")).willReturn(member.getUserNm());
         given(request.getParameter("email")).willReturn(member.getEmail());
-        given(request.getParameter("agree")).willReturn(""+member.isAgree());
+        given(request.getParameter("ageAgree")).willReturn(""+member.isAgeAgree());
+        given(request.getParameter("termsOfUser")).willReturn(""+member.isTermsOfUser());
+        given(request.getParameter("privacy")).willReturn(""+member.isPrivacy());
+        given(request.getParameter("thirdPartyAgree")).willReturn(""+member.isThirdPartyAgree());
         joinService.join(request);
 
+    }
+
+    @Test
+    @DisplayName("이메일 형식이 맞지 않을 경우 BadRequestException 발생")
+    void emailCheckTest(){
+        assertThrows(BadRequestException.class, ()->{
+            Member member = getMember();
+            member.setEmail("test");
+            joinService.join(member);
+
+        });
     }
 }
