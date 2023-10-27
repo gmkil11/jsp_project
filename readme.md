@@ -1,5 +1,8 @@
 # JSP 프로젝트
 
+## 완성 화면
+![전체 메인 페이지](https://github.com/gmkil11/jsp_project/blob/imageReadme/images/%EC%A0%84%EC%B2%B4%20%ED%8E%98%EC%9D%B4%EC%A7%80%20%EB%A9%94%EC%9D%B8.png?raw=true)
+
 ## TDD를 통한 설계
 ### 의존성 추가(pom.xml)
 - junit 5
@@ -74,8 +77,6 @@
       - controllers/member/LogoutController
       - GET, POST 메서드 상관 없이 기능 할 수 있도록 처리
 
-## 완성 화면
-![전체 메인 페이지](https://github.com/gmkil11/jsp_project/blob/imageReadme/images/%EC%A0%84%EC%B2%B4%20%ED%8E%98%EC%9D%B4%EC%A7%80%20%EB%A9%94%EC%9D%B8.png?raw=true)
 
 ### 회원가입
 #### 회원가입 페이지 

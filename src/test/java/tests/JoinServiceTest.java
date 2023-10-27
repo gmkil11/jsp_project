@@ -155,12 +155,14 @@ public class JoinServiceTest {
     void emailDuplicationJoinCheck() {
         DuplicateMemberException thrown = assertThrows(DuplicateMemberException.class, ()->{
            Member member = getMember();
+           String email = member.getEmail();
            String userPw = member.getUserPw();
            joinService.join(member);
             System.out.println(member.getUserNm());
 
-           member.setUserNm("a");
-            System.out.println(member.getUserNm());
+           member = getMember();
+           member.setUserNm("123456767");
+           member.setEmail(email);
            member.setUserPw(userPw);
             joinService.join(member);
         });
@@ -176,11 +178,13 @@ public class JoinServiceTest {
             Member member = getMember();
             String userPw = member.getUserPw();
             joinService.join(member);
+            System.out.println(member.getUserNm());
 
 
-            member.setEmail("a"+member.getEmail());
+            member.setEmail("a"+member.getEmail()); // 이메일 중복 가입 시 예외 발생하기 때문에 이메일을 다르게 설정
             member.setUserPw(userPw);
             joinService.join(member);
+            System.out.println(member.getUserNm());
         });
         System.out.println(thrown);
         assertTrue(thrown.getMessage().contains("회원명"));

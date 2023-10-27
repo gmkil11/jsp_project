@@ -2,7 +2,9 @@ package models.member;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MemberDao {
@@ -26,11 +28,9 @@ public class MemberDao {
         return members.containsKey(value);
     }
 
-    public boolean existsUserNm(String userNm) {
-        return members.values().stream()
-                .anyMatch(member -> member.getUserNm().equals(userNm));
+    public boolean checkDupUserNm(String userNm) {
+        return members.values().stream().anyMatch(m -> m.getUserNm().equals(userNm));
     }
-
 
     public static void clearData() { // DB 연동 시 필요 없음
         members.clear();

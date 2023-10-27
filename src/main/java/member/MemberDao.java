@@ -22,9 +22,12 @@ public class MemberDao {
 
 
 
-    public boolean exists(String email){
+    public boolean exists(String value){
+        return members.containsKey(value);
+    }
 
-        return members.containsKey(email);
+    public boolean checkDupUserNm(String userNm) {
+        return members.values().stream().anyMatch(m -> m.getUserNm().equals(userNm));
     }
 
     public static void clearData() { // DB 연동 시 필요 없음
